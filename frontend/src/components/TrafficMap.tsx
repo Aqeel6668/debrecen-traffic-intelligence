@@ -1,0 +1,4 @@
+import {MapContainer,TileLayer,CircleMarker,Popup} from 'react-leaflet';
+type Sensor={sensor_id:string;average_vehicles:number;total_vehicles:number};
+export default function TrafficMap({sensors}:{sensors:Sensor[]}){const positions:[number,number][]=[[47.531,21.625],[47.545,21.635],[47.520,21.610],[47.548,21.605]];
+return <MapContainer center={[47.531,21.625]} zoom={12} scrollWheelZoom={false} className="map"><TileLayer attribution='&copy; OpenStreetMap contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>{sensors.map((s,i)=><CircleMarker key={s.sensor_id} center={positions[i%positions.length]} radius={Math.max(8,Math.min(18,s.average_vehicles/5))} pathOptions={{color:'#16a6a0',fillColor:'#16a6a0',fillOpacity:.55}}><Popup><b>{s.sensor_id}</b><br/>Average count: {s.average_vehicles}<br/><small>Illustrative location only</small></Popup></CircleMarker>)}</MapContainer>}

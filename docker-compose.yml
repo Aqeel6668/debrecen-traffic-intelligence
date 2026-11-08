@@ -1,0 +1,13 @@
+services:
+  db:
+    image: postgres:16
+    container_name: debrecen-traffic-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: traffic
+      POSTGRES_PASSWORD: trafficpass
+      POSTGRES_DB: trafficdb
+    ports: ["5432:5432"]
+    volumes: [traffic_postgres_data:/var/lib/postgresql/data]
+volumes:
+  traffic_postgres_data:
